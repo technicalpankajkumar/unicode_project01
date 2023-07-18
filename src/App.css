@@ -1,38 +1,70 @@
-.App {
-  text-align: center;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: small;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container-questions-create{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.questions-create{
+    width: 350px;
+    padding: 15px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.questions-title{
+    font-size: 1.5em;
+   padding: 15px 10px;
 }
-
-.App-link {
-  color: #61dafb;
+.test-type-select, .managed-type-select,.screening-type-select,.test-name-input, 
+.number-of-questions-input, .random-question-input, .technology-type-select,.input-class{
+    margin:4px 0px 10px 0px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.test-name-input, .number-of-questions-input, .random-question-input,.input-class{
+    width: 100%;
+    height: 38px;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+.test-name-input:focus,.number-of-questions-input:focus,.random-question-input:focus{
+    outline: 2px solid #2684FF;
+    border: none;
+}
+.test-name-input::placeholder{
+    color: hsl(0, 2%, 67%) ;
+}
+.labels{
+    color: rgb(44, 44, 44);
+}
+.btn-group{
+    display: flex;
+    flex-direction: row;
+}
+.btn{
+    height: 35px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0px 0px 50px 20px;
+}
+.btn-1{
+    background: #054ba7;
+}
+.btn-2{
+    background: #86888a;
+}
+.radio{
+    margin: 5px;
+    margin-bottom: 15px;
+}
+.random-questions{
+    width: 350px;
+    padding: 10px;
 }
