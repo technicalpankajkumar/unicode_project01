@@ -25,5 +25,9 @@ const technologyOptions=[
     {value:"java",label:"Java"},
     {value:"python",label:"Python"},
 ]
-
-export {testTypeOptions,managedByOption,screeningTypeOptions,radioOptions,radioOptions2,technologyOptions}
+const questionTypeOptions = [
+    {value:"mc",label:"MCQ"},
+    {value:"programming",label:"Programming"},
+    {value:"descriptive",label:"Descriptive"},
+]
+export {testTypeOptions,managedByOption,screeningTypeOptions,radioOptions,radioOptions2,technologyOptions,questionTypeOptions}

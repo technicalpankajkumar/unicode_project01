@@ -1,10 +1,10 @@
 import React, { memo, useContext, useState } from 'react'
 import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
-import { Button, Input, Radio } from 'form_utility_package'
+import { Input, Radio } from 'form_utility_package'
 import { managedByOption, radioOptions, radioOptions2, screeningTypeOptions} from './Data';
 import { ContextAPI } from './Layout';
-
+import { toast } from 'react-toastify';
 function QuestionsCreate() {
 
     const ContextAPIData = useContext(ContextAPI)
@@ -14,7 +14,6 @@ function QuestionsCreate() {
 
     // only this onSmash function apply selete field
     const onSmash = (type, obj) => {
-        console.log(obj)
         if (obj?.value == 'agent') {
             setStore(pre => ({ ...pre, [type]: obj }))
             setStore(pre => ({ ...pre, radioValue: "mcq" }))
@@ -31,7 +30,7 @@ function QuestionsCreate() {
     //this onChange function apply othere field
     const onChange = (e) => {
         if(e.target.value < 0){
-              //enter message or other statement
+             toast.warn("enter positive value")
         }else {
             setStore(pre => ({ ...pre, [e.target.name]: e.target.value }))
         }
@@ -54,7 +53,13 @@ function QuestionsCreate() {
 
                 {/* form_utility_library code */}
                 <label className="labels">Test name </label>
-                <Input type="text" name="testName" value={testName} onChange={onChange} placeholder="Enter test name" className="test-name-input" />
+                <Input 
+                type="text" 
+                name="testName" 
+                value={testName} 
+                onChange={onChange} 
+                placeholder="Enter test name" 
+                className="input-class" />
 
                 {/* react-select library code */}
                 <label className="labels">Select Test Type or add New Test Type </label>
@@ -62,7 +67,7 @@ function QuestionsCreate() {
                     isClearable
                     options={testTypeOptionsCreate}
                     onChange={(obj) => onSmash('testType', obj)}
-                    className="test-type-select"
+                    className="select-class"
                     onCreateOption={onCreateOptionSmash}
                 />
                 <label className="labels">Managed by </label>
@@ -70,7 +75,7 @@ function QuestionsCreate() {
                     options={managedByOption}
                     defalutValue={managedType}
                     onChange={(obj) => onSmash('managedType', obj)}
-                    className="managed-type-select"
+                    className="select-class"
                 />
                 {
                     managedType.value == 'agent'
@@ -99,7 +104,7 @@ function QuestionsCreate() {
                     options={screeningTypeOptions}
                     defalutValue={screeningType}
                     onChange={(obj) => onSmash('screeningType', obj)}
-                    className="screening-type-select"
+                    className="select-class"
                 />
 
                 {/* form_utility_library code */}
@@ -109,7 +114,7 @@ function QuestionsCreate() {
                     name="numberOfQuestions"
                     value={numberOfQuestions}
                     onChange={onChange}
-                    className="number-of-questions-input"
+                    className="input-class"
                 />
                 
             </div>
