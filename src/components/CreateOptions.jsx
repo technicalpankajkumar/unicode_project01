@@ -1,23 +1,36 @@
-import { Label,Input } from 'form_utility_package'
+import { Label, Input } from 'form_utility_package'
 import React, { memo } from 'react'
 
-function CreateOptions({onClick,onChange,index}){
-  
+function CreateOptions({localStore, onClick, onChange,onDelete, index , currectAnswer}) {
+
     return (
         <div className='create-options'>
             <div className='options'>
-                <Label className="lebels" label={`Answer Option ${index+1}`} />
-                <Input 
-                type="text" 
-                name={`option_${index+1}`}
-                placeholder="write option" 
-                className="input-class" 
-                onChange={onChange}
+                <Label className="lebels" label={`Answer Option ${index}`} />
+                <Input
+                    type="text"
+                    name={`option_${index}`}
+                    placeholder={`write option-${index}`}
+                    //write value
+                    value ={localStore.options?.[`option_${index}`]}
+                    className="input-class"
+                    onChange={onChange}
                 />
             </div>
             <div className='right-option'>
-                <Label label="In Correct" className="labels" />
-                <Input type="radio" name="correct_answar" value={`option_${index+1}`} onClick={onClick}/>
+                <Label label="In Correct" className="labels" /><br/>
+                <div className='d-flex'>
+                    <Input
+                        type="radio"
+                        name="correct_answar"
+                        value={`option_${index}`}
+                        onClick={onClick}
+                        className="check-css"
+                        checked={currectAnswer == `option_${index}`}
+                        onChange={(e)=> ''}
+                    />
+                    <i className="bi bi-trash" onClick={()=>onDelete(index,`option_${index}`)}></i>
+                </div>
             </div>
         </div>
     )

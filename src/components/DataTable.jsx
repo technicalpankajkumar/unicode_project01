@@ -24,7 +24,7 @@ const rows = [
 export default function DataTable() {
   return (
     <div className='container-data-table'>
-      <div className='.data-table'>
+      <div className='data-table'>
         <DataGrid
           rows={rows}
           columns={columns}
@@ -33,7 +33,7 @@ export default function DataTable() {
               paginationModel: { page: 0, pageSize: 5 },
             },
           }}
-          pageSizeOptions={[5, 10]}
+          pageSizeOptions={[5, 10,15,30]}
           checkboxSelection
         />
       </div>

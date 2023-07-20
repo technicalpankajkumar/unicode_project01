@@ -11,7 +11,7 @@ function CreateNewQuestions({ setAddQuestion }) {
         technology: '',
         question_type: '',
         question_title: '',
-        options: {},
+        options: { option_1: '', option_2: '', option_3: '', option_4: '' },
         correct_answar: ''
     }
     const [questionStore, setQuestionStore] = useState(staticField)
@@ -24,19 +24,43 @@ function CreateNewQuestions({ setAddQuestion }) {
         setQuestionStore(pre => ({ ...pre, [e.target.name]: e.target.value }))
     }
     const onSelect = (name, obj) => {
-        setQuestionStore(pre => ({ ...pre, [name]: obj.value }))
+        setQuestionStore(pre => ({ ...pre, [name]: obj }))
     }
+
+    //delete options data function   problem create
+    const onDelete = (removeData, key) => {
+
+        let rightAnswer = questionStore.correct_answar == key ? '' : key;
+
+        if (rightAnswer == '') {
+            setQuestionStore(pre => ({ ...pre, correct_answar: rightAnswer }))
+        }
+
+        setQuestionStore(pre => ({ ...pre, options: { ...pre.options, [key]: '' } }))
+
+        setOptionsCreate(optionsCreate.filter(item => item != removeData))
+    }
+
+    //render option field base on this array
     const onOptionClick = () => {
+        function findMissing(arr) {
+            for (let i = 1; i <= 4; i++)
+                if (!arr.includes(i)) return i;
+        }
+
         if (optionsCreate.length < 4) {
-            setOptionsCreate(pre => [...pre, 0])
+            setOptionsCreate(pre => [...pre, findMissing(optionsCreate)])
         } else {
-            //toast here show 
+            toast.warn("maximum option selected !")
         }
     }
+
+    console.log(questionStore)
+
+    // Main Store data handler All button create data logic or validations
     const onOptionChange = (e) => {
         setQuestionStore(pre => ({ ...pre, options: { ...pre.options, [e.target.name]: e.target.value } }))
     }
-
     const onHandleCreate = () => {
         if (Object.values(questionStore).every(data => Boolean(data) !== false)) {
             setStore(pre => ({
@@ -68,19 +92,21 @@ function CreateNewQuestions({ setAddQuestion }) {
             ))
             setQuestionStore(staticField)
             setOptionsCreate([])
-        }else {
+        } else {
             toast.error("Please fill all field are required !", {
                 icon: "🚀",
             })
         }
     }
 
+    //
+
     return (
         <div className='container-create-new-question'>
             <h1>Add New Question</h1>
             <Label className="labels" label="Technology" />
             <Select
-                defaultValue={questionStore.technology}
+                value={questionStore.technology}
                 options={technologyOptions}
                 onChange={(obj) => onSelect('technology', obj)}
                 className='select-class'
@@ -88,7 +114,7 @@ function CreateNewQuestions({ setAddQuestion }) {
 
             <Label className="labels" label="Question Type" />
             <Select
-                defaultValue={questionStore.question_type}
+                value={questionStore.question_type}
                 options={questionTypeOptions}
                 onChange={(obj) => onSelect('question_type', obj)}
                 className='select-class'
@@ -110,7 +136,14 @@ function CreateNewQuestions({ setAddQuestion }) {
             {
                 optionsCreate.map((data, index) => {
                     return (<span key={index}>
-                        <CreateOptions onChange={onOptionChange} onClick={onSmash} index={index} />
+                        <CreateOptions
+                            localStore={questionStore}
+                            onChange={onOptionChange}
+                            onClick={onSmash}
+                            onDelete={onDelete}
+                            index={data}
+                            currectAnswer={questionStore.correct_answar}
+                        />
                     </span>)
                 })
             }
@@ -131,7 +164,7 @@ function CreateNewQuestions({ setAddQuestion }) {
                     type="button"
                     label="Cancel"
                     className="btn-cancel"
-                    onClick={() =>{ setAddQuestion(false); toast.success("thank for cancelation")}}
+                    onClick={() => { setAddQuestion(false); toast.success("thank for cancelation") }}
                 />
             </div>
         </div>

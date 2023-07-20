@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export const ContextAPI = createContext()
 
 function Layout() {
-    
+
     const [store, setStore] = useState({
         testName: "",
         testTypeOptionsCreate: testTypeOptions,
@@ -19,15 +19,16 @@ function Layout() {
         radioValue: '',
         screeningType: {},
         numberOfQuestions: 0,
-        randomQueston:{random_question:0,technology:'',number_of_mcq_question:0},
+        randomQueston: { random_question: 0, technology: '', number_of_mcq_question: 0 },
         predifineQuestion: {
-            numberOfPredifneQuestion: 0,
-            technology: [],
-            questionTypes: [],
+            total_question: 0,
+            technologies: [],
+            question_types: [],
             addNewQuestions: []
         }
     })
     const [renderSection, setRenderSection] = useState(true)
+
     console.log(store)
     return (
         <ContextAPI.Provider value={{ store, setStore }}>
@@ -54,7 +55,7 @@ function Layout() {
                             <></>
                     }
                     {/* submitted buttons */}
-                    <div className='btn-group'>
+                    <div className='btn-group btn-main'>
                         <Button type="button" label="Submit Condidate Test" className="btn btn-1" />
                         <Button type="button" label="Final Submit" className="btn btn-2" />
                     </div>

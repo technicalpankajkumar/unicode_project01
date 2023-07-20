@@ -1,4 +1,4 @@
-import React, { memo, useContext, useState } from 'react'
+import React, { memo, useContext } from 'react'
 import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
 import { Input, Radio } from 'form_utility_package'
@@ -30,7 +30,7 @@ function QuestionsCreate() {
     //this onChange function apply othere field
     const onChange = (e) => {
         if(e.target.value < 0){
-             toast.warn("enter positive value")
+            toast.warn("please add value grater then 0 !")
         }else {
             setStore(pre => ({ ...pre, [e.target.name]: e.target.value }))
         }
