@@ -26,7 +26,7 @@ const technologyOptions=[
     {value:"python",label:"Python"},
 ]
 const questionTypeOptions = [
-    {value:"mc",label:"MCQ"},
+    {value:"mcq",label:"MCQ"},
     {value:"programming",label:"Programming"},
     {value:"descriptive",label:"Descriptive"},
 ]

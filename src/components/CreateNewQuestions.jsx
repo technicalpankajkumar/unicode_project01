@@ -6,12 +6,14 @@ import CreateOptions from './CreateOptions'
 import { Button } from 'form_utility_package'
 import { ContextAPI } from './Layout'
 import { toast } from 'react-toastify'
+import { PostAPI } from './API'
+
 function CreateNewQuestions({ setAddQuestion }) {
     const staticField = {
         technology: '',
         question_type: '',
         question_title: '',
-        options: { option_1: '', option_2: '', option_3: '', option_4: '' },
+        options: { option_1: '', option_2: '' },
         correct_answar: ''
     }
     const [questionStore, setQuestionStore] = useState(staticField)
@@ -55,24 +57,37 @@ function CreateNewQuestions({ setAddQuestion }) {
         }
     }
 
-    console.log(questionStore)
-
     // Main Store data handler All button create data logic or validations
     const onOptionChange = (e) => {
         setQuestionStore(pre => ({ ...pre, options: { ...pre.options, [e.target.name]: e.target.value } }))
     }
     const onHandleCreate = () => {
         if (Object.values(questionStore).every(data => Boolean(data) !== false)) {
-            setStore(pre => ({
-                ...pre,
-                predifineQuestion: {
-                    ...pre.predifineQuestion, addNewQuestions: [
-                        ...pre.predifineQuestion.addNewQuestions, questionStore
-                    ]
-                }
+            if (optionsCreate.length > 1) {
+
+                setStore(pre => ({
+                    ...pre, predifineQuestion: {
+                        ...pre.predifineQuestion, newly_created_questions: [
+                            Number(store.predifineQuestion.newly_created_questions) + 1
+                        ]
+                    }
+                }))
+
+                const { technology, question_type, ...rest } = questionStore;
+
+                PostAPI('http://localhost:8000/created_new_questions', {
+                    technology: technology.value,
+                    question_type: question_type.value,
+                    ...rest
+                }).then(res => {
+                    toast.success(`Data successfully ${res.statusText}`)
+                }).catch((err) => console.log(err))
+
+                setAddQuestion(false)
+
+            } else {
+                toast("please select minimum 2 options")
             }
-            ))
-            setAddQuestion(false)
         } else {
             toast.error("Please fill all field are required !", {
                 icon: "🚀",
@@ -81,25 +96,37 @@ function CreateNewQuestions({ setAddQuestion }) {
     }
     const onHandleSaveCreate = () => {
         if (Object.values(questionStore).every(data => Boolean(data) !== false)) {
-            setStore(pre => ({
-                ...pre,
-                predifineQuestion: {
-                    ...pre.predifineQuestion, addNewQuestions: [
-                        ...pre.predifineQuestion.addNewQuestions, questionStore
-                    ]
-                }
+            if (optionsCreate.length > 1) {
+                setStore(pre => ({
+                    ...pre, predifineQuestion: {
+                        ...pre.predifineQuestion, newly_created_questions: [
+                            Number(store.predifineQuestion.newly_created_questions) + 1
+                        ]
+                    }
+                }))
+
+                const { technology, question_type, ...rest } = questionStore;
+
+                PostAPI('http://localhost:8000/created_new_questions', {
+                    technology: technology.value,
+                    question_type: question_type.value,
+                    ...rest
+                }).then(res => {
+                    toast.success(`Data successfully ${res.statusText}`)
+                }).catch((err) => console.log(err))
+
+                setQuestionStore(staticField)
+                setOptionsCreate([])
+
+            } else {
+                toast("please select minimum 2 options")
             }
-            ))
-            setQuestionStore(staticField)
-            setOptionsCreate([])
         } else {
             toast.error("Please fill all field are required !", {
                 icon: "🚀",
             })
         }
     }
-
-    //
 
     return (
         <div className='container-create-new-question'>

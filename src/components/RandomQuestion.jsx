@@ -1,16 +1,21 @@
 import { Input, Label } from 'form_utility_package'
 import Select from 'react-select'
-import React, { memo, useContext } from 'react'
+import React, { memo, useContext, useEffect } from 'react'
 import { technologyOptions } from './Data'
 import { ContextAPI } from './Layout'
 import { toast } from 'react-toastify'
 function RandomQuestion() {
     const contextApi = useContext(ContextAPI);
     const { numberOfQuestions, randomQueston } = contextApi.store;
-    const { random_question, number_of_mcq_question , technology} = randomQueston
+    const { random_question, number_of_mcq_question , technologies} = randomQueston
+
+    useEffect(()=>{
+          //set predifine question value remaing value
+          let remainingValue = Number(numberOfQuestions) - Number(random_question)
+          contextApi.setStore(pre => ({...pre,predifineQuestion:{...pre.predifineQuestion,total_question: remainingValue}}))
+    },[random_question])
 
     const onChange = (e) => {
-
         if (e.target.value < 0) {
             toast.warn("please add value grater then 0 !")
         } else {
@@ -51,10 +56,11 @@ function RandomQuestion() {
             {/* Technology */}
             <Label className="labels" label="Technology" />
             <Select
-                value={technology}
+                isMulti
+                value={technologies}
                 options={technologyOptions}
                 className='select-class'
-                onChange={(obj) => onSelect('technology', obj)}
+                onChange={(obj) => onSelect('technologies', obj)}
             />
 
             {/* Number of MCQ Questions */}

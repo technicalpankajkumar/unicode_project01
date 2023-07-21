@@ -20,7 +20,7 @@ function QuestionsCreate() {
         }
         else if (obj?.value == 'user') {
             setStore(pre => ({ ...pre, [type]: obj }))
-            setStore(pre => ({ ...pre, radioValue: " " }))
+            setStore(pre => ({ ...pre, radioValue: "" }))
         }
         else {
             setStore(pre => ({ ...pre, [type]: obj }))
@@ -45,7 +45,6 @@ function QuestionsCreate() {
         }
         ))
     }
-    console.log(store)
 
     return (
         <div className='container-questions-create'>
@@ -64,7 +63,6 @@ function QuestionsCreate() {
                 {/* react-select library code */}
                 <label className="labels">Select Test Type or add New Test Type </label>
                 <CreatableSelect
-                    isClearable
                     options={testTypeOptionsCreate}
                     onChange={(obj) => onSmash('testType', obj)}
                     className="select-class"

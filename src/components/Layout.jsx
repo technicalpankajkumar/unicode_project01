@@ -14,22 +14,19 @@ function Layout() {
     const [store, setStore] = useState({
         testName: "",
         testTypeOptionsCreate: testTypeOptions,
-        testType: "",
+        testType: '',
         managedType: {},
-        radioValue: '',
+        radioValue:'',
         screeningType: {},
         numberOfQuestions: 0,
-        randomQueston: { random_question: 0, technology: '', number_of_mcq_question: 0 },
+        randomQueston: { random_question: 0, technologies: [], number_of_mcq_question: 0 },
         predifineQuestion: {
             total_question: 0,
-            technologies: [],
-            question_types: [],
-            addNewQuestions: []
+            newly_created_questions: [0]
         }
     })
     const [renderSection, setRenderSection] = useState(true)
 
-    console.log(store)
     return (
         <ContextAPI.Provider value={{ store, setStore }}>
             <div className='layout-container'>
@@ -39,7 +36,7 @@ function Layout() {
                     <QuestionsCreate />
                     {/* Random and Predifined Question Section */}
                     {
-                        Number(store.numberOfQuestions) > 0
+                       ( Number(store.numberOfQuestions) > 0 && store.testName != '' && store.testType != '' && store.radioValue != '' && Object.values(store.managedType).length != 0 && Object.values(store.screeningType).length != 0)
                             ?
                             <div className='container-random-predifine-question'>
                                 <div className='navigate-question'>
