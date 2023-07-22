@@ -54,11 +54,15 @@
     margin: 0px 0px 50px 20px;
 }
 .btn-1{
-    background: #054ba7;
+    background: #02469f;
 }
 .btn-2{
-    background: #86888a;
+    background: #06c72c;
 }
+.btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 .radio{
     margin: 5px;
     margin-bottom: 15px;

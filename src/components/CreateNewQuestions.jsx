@@ -11,10 +11,10 @@ import { PostAPI } from './API'
 function CreateNewQuestions({ setAddQuestion }) {
     const staticField = {
         technology: '',
-        question_type: '',
+        question_type: {},
         question_title: '',
         options: { option_1: '', option_2: '' },
-        correct_answar: ''
+        correct_answar: []
     }
     const [questionStore, setQuestionStore] = useState(staticField)
     const [optionsCreate, setOptionsCreate] = useState([])
@@ -25,6 +25,9 @@ function CreateNewQuestions({ setAddQuestion }) {
     const onSmash = (e) => {
         setQuestionStore(pre => ({ ...pre, [e.target.name]: e.target.value }))
     }
+    const onCheckClick =(e)=>{
+        setQuestionStore(pre => ({ ...pre, [e.target.name]: [e.target.value] }))
+    }
     const onSelect = (name, obj) => {
         setQuestionStore(pre => ({ ...pre, [name]: obj }))
     }
@@ -32,10 +35,10 @@ function CreateNewQuestions({ setAddQuestion }) {
     //delete options data function   problem create
     const onDelete = (removeData, key) => {
 
-        let rightAnswer = questionStore.correct_answar == key ? '' : key;
+        let rightAnswer = questionStore.correct_answar[0] === key ? '' : key;
 
         if (rightAnswer == '') {
-            setQuestionStore(pre => ({ ...pre, correct_answar: rightAnswer }))
+            setQuestionStore(pre => ({ ...pre, correct_answar: [rightAnswer] }))
         }
 
         setQuestionStore(pre => ({ ...pre, options: { ...pre.options, [key]: '' } }))
@@ -63,7 +66,7 @@ function CreateNewQuestions({ setAddQuestion }) {
     }
     const onHandleCreate = () => {
         if (Object.values(questionStore).every(data => Boolean(data) !== false)) {
-            if (optionsCreate.length > 1) {
+            if ((optionsCreate.length > 1 && questionStore.correct_answar.length === 1)|| questionStore.question_type.value === 'programming' || questionStore.question_type.value === 'descriptive') {
 
                 setStore(pre => ({
                     ...pre, predifineQuestion: {
@@ -86,7 +89,7 @@ function CreateNewQuestions({ setAddQuestion }) {
                 setAddQuestion(false)
 
             } else {
-                toast("please select minimum 2 options")
+                toast("please select minimum 2 options and choose right answer")
             }
         } else {
             toast.error("Please fill all field are required !", {
@@ -96,7 +99,7 @@ function CreateNewQuestions({ setAddQuestion }) {
     }
     const onHandleSaveCreate = () => {
         if (Object.values(questionStore).every(data => Boolean(data) !== false)) {
-            if (optionsCreate.length > 1) {
+            if ((optionsCreate.length > 1 && questionStore.correct_answar.length === 1 )|| questionStore.question_type.value === 'programming' || questionStore.question_type.value === 'descriptive') {
                 setStore(pre => ({
                     ...pre, predifineQuestion: {
                         ...pre.predifineQuestion, newly_created_questions: [
@@ -119,7 +122,7 @@ function CreateNewQuestions({ setAddQuestion }) {
                 setOptionsCreate([])
 
             } else {
-                toast("please select minimum 2 options")
+                toast("please select minimum 2 options and choose right answer")
             }
         } else {
             toast.error("Please fill all field are required !", {
@@ -127,6 +130,8 @@ function CreateNewQuestions({ setAddQuestion }) {
             })
         }
     }
+
+    console.log(questionStore)
 
     return (
         <div className='container-create-new-question'>
@@ -156,20 +161,24 @@ function CreateNewQuestions({ setAddQuestion }) {
                 onChange={onSmash}
             />
 
-            <div className='create-icon'>
+           { 
+           
+            questionStore.question_type?.value === 'mcq' && <div className='create-icon'>
                 <Label className="labels" label="Answer options" />
                 &nbsp;  &nbsp;<span onClick={onOptionClick}> <i className="bi bi-patch-plus"></i></span>
             </div>
+           
+            }
             {
                 optionsCreate.map((data, index) => {
                     return (<span key={index}>
                         <CreateOptions
                             localStore={questionStore}
                             onChange={onOptionChange}
-                            onClick={onSmash}
+                            onClick={onCheckClick}
                             onDelete={onDelete}
                             index={data}
-                            currectAnswer={questionStore.correct_answar}
+                            currectAnswer={questionStore.correct_answar[0]}
                         />
                     </span>)
                 })

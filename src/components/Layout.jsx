@@ -22,13 +22,15 @@ function Layout() {
         randomQueston: { random_question: 0, technologies: [], number_of_mcq_question: 0 },
         predifineQuestion: {
             total_question: 0,
+            checkbox_selected_question:[],
             newly_created_questions: [0]
         }
     })
+    const [btnControl,setBtnControl]= useState(false)
     const [renderSection, setRenderSection] = useState(true)
 
     return (
-        <ContextAPI.Provider value={{ store, setStore }}>
+        <ContextAPI.Provider value={{ store, setStore , setBtnControl}}>
             <div className='layout-container'>
                 <h3 className='questions-title'>Candidate screening test creation.</h3>
                 <ToastContainer />
@@ -53,8 +55,8 @@ function Layout() {
                     }
                     {/* submitted buttons */}
                     <div className='btn-group btn-main'>
-                        <Button type="button" label="Submit Condidate Test" className="btn btn-1" />
-                        <Button type="button" label="Final Submit" className="btn btn-2" />
+                        <Button type="button" label="Submit Condidate Test" className={btnControl ? 'btn btn-1' :"btn btn-1 btn-disabled"} disabled={btnControl} />
+                        <Button type="button" label="Final Submit" className={btnControl ? 'btn btn-2' :"btn btn-2 btn-disabled"} disabled={btnControl}/>
                     </div>
                 </div>
             </div>

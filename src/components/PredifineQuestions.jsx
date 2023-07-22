@@ -10,22 +10,22 @@ import { GetAPI } from './API'
 
 function PredifineQuestions() {
     //search use state
-    const [searchData, setSearchData] = useState({ technology:[], question_type:[] })
-    const [searchClear,setSearchClear]= useState(false)
+    const [searchData, setSearchData] = useState({ technology: [], question_type: [] })
+    const [searchClear, setSearchClear] = useState(false)
 
     const [rows, setRows] = useState([])
 
     const [addQuestion, setAddQuestion] = useState(false)
 
     const contextAPI = useContext(ContextAPI)
-    const { store, setStore } = contextAPI
-    const { total_question } = store.predifineQuestion;
+    const { store, setStore, setBtnControl } = contextAPI
+    const { total_question, checkbox_selected_question } = store.predifineQuestion;
 
     useEffect(() => {
         GetAPI('http://localhost:8000/created_new_questions').then(resp => resp.json().then(res => {
             setRows(res)
         }))
-    }, [store.predifineQuestion.newly_created_questions,searchClear])
+    }, [store.predifineQuestion.newly_created_questions[0], searchClear])
 
     const onSelectChange = (name, obj) => {
         setSearchData(pre => ({ ...pre, [name]: obj }))
@@ -48,24 +48,85 @@ function PredifineQuestions() {
         }
     }
     const onSearch = () => {
-        const {technology,question_type}= searchData
-        const value1= searchData.technology.length != 0 && technology[0]?.value
-        const value2 =searchData.question_type.length != 0 && question_type[0]?.value
+        const { technology, question_type } = searchData
+        const technology1 = searchData.technology.length != 0 && technology[0]?.value
+        const technology2 = searchData.technology.length === 2 && technology[1]?.value
+        const question_type1 = searchData.question_type.length !== 0 && question_type[0]?.value
+        const question_type2 = searchData.question_type.length === 2 && question_type[1]?.value
 
-        GetAPI(`http://localhost:8000/created_new_questions?technology=${value1}&?question_type=${value2}`).then(resp =>{
-            resp.json().then(result => setRows(result))
-        })
+        if (question_type1) {
+            if (question_type2 && technology2) {
+                GetAPI(`http://localhost:8000/created_new_questions?technology=${technology1}&technology=${technology2}&question_type=${question_type1}&question_type=${question_type2}`).then(resp => {
+                    resp.json().then(result => setRows(result))
+                })
+            }
+            else if(question_type2 && technology1){
+                GetAPI(`http://localhost:8000/created_new_questions?technology=${technology1}&question_type=${question_type1}&question_type=${question_type2}`).then(resp => {
+                    resp.json().then(result => setRows(result))
+                })
+            }else if(technology1 && technology2) {
+                GetAPI(`http://localhost:8000/created_new_questions?technology=${technology1}&technology=${technology2}&question_type=${question_type1}`).then(resp => {
+                    resp.json().then(result => setRows(result))
+                })
+            }
+             else if(technology1) {
+                GetAPI(`http://localhost:8000/created_new_questions?technology=${technology1}&question_type=${question_type1}`).then(resp => {
+                    resp.json().then(result => setRows(result))
+                })
+            }else{
+                GetAPI(`http://localhost:8000/created_new_questions?question_type=${question_type1}`).then(resp => {
+                    resp.json().then(result => setRows(result))
+                })
+            }
+        } else if (technology2) {
+            GetAPI(`http://localhost:8000/created_new_questions?technology=${technology1}&technology=${technology2}`).then(resp => {
+                resp.json().then(result => setRows(result))
+            })
+        } else {
+            GetAPI(`http://localhost:8000/created_new_questions?technology=${technology1}`).then(resp => {
+                resp.json().then(result => setRows(result))
+            })
+        }
 
     }
     const onClear = () => {
-        setSearchData(pre => ({ technology:[], question_type:[]}))
+        setSearchData(pre => ({ technology: [], question_type: [] }))
         setSearchClear(!searchClear)
     }
 
-    const tableCheckSelect=(e)=>{
-        console.log(e)
+    const onTableCheckSelect = (data) => {
+        const { formattedValue, value, row } = data;
+        if (value) {
+            setStore(pre => ({
+                ...pre, predifineQuestion: {
+                    ...pre.predifineQuestion, checkbox_selected_question: checkbox_selected_question.filter(id => {
+                        return id != row.id
+                    })
+                }
+            }))
+        } else {
+            setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: [...pre.predifineQuestion.checkbox_selected_question, row.id] } }))
+        }
+        btnDisabled()
+    }
+    const onHeaderCheckSelection = (arr) => {
+        if (arr.length === 0) {
+            setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: [arr.length] } }))
+        } else {
+            setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: arr } }))
+        }
+        btnDisabled()
     }
 
+    const btnDisabled = () => {
+        if (Number(total_question) === checkbox_selected_question.length+1) {
+            setBtnControl(true)
+        } else {
+            setBtnControl(false)
+        }
+    }
+
+    console.log(store)
     return (
         <div className='predifine-question'>
             <div className='container-predifine-question'>
@@ -122,7 +183,7 @@ function PredifineQuestions() {
                 />
             </div>
             {addQuestion ? <CreateNewQuestions setAddQuestion={setAddQuestion} /> : <></>}
-            <DataTable rows={rows} onClick={tableCheckSelect}/>
+            <DataTable rows={rows} onClick={onTableCheckSelect} onHeaderCheckSelection={onHeaderCheckSelection} />
         </div>
     )
 }

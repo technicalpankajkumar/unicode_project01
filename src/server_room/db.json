@@ -1,0 +1,217 @@
+{
+  "created_new_questions": [
+    {
+      "technology": "java",
+      "question_type": "mcq",
+      "question_title": "Q. What is Java ?",
+      "options": {
+        "option_1": "Programming language",
+        "option_2": "Scripting language",
+        "option_3": "Markup language",
+        "option_4": "a &b both"
+      },
+      "correct_answar": "option_1",
+      "id": 2
+    },
+    {
+      "technology": "python",
+      "question_type": "mcq",
+      "question_title": "Q. What is python?.",
+      "options": {
+        "option_1": "Programming Language",
+        "option_2": "Scripting Language",
+        "option_3": "Both"
+      },
+      "correct_answar": "option_3",
+      "id": 3
+    },
+    {
+      "technology": "react_js",
+      "question_type": "mcq",
+      "question_title": "kjdashdfkasjf",
+      "options": {
+        "option_1": "fasdfasf",
+        "option_2": "sdfasfdsaf"
+      },
+      "correct_answar": "option_1",
+      "id": 4
+    },
+    {
+      "technology": "react_js",
+      "question_type": "mcq",
+      "question_title": "What is React Js",
+      "options": {
+        "option_1": "React Js is A Singal Page Application",
+        "option_2": "React Js a Multipage Application",
+        "option_3": "React js is a UI Langauge",
+        "option_4": "React js a Fast Langauge"
+      },
+      "correct_answar": "option_1",
+      "id": 5
+    },
+    {
+      "technology": "java",
+      "question_type": "programming",
+      "question_title": "Q What is multithreading ?.",
+      "options": {
+        "option_1": "Concept",
+        "option_2": "Programming"
+      },
+      "correct_answar": "option_1",
+      "id": 6
+    },
+    {
+      "technology": "python",
+      "question_type": "mcq",
+      "question_title": "Q.What is Django ?.",
+      "options": {
+        "option_1": "Library",
+        "option_2": "Framework",
+        "option_3": "Language"
+      },
+      "correct_answar": "option_2",
+      "id": 7
+    },
+    {
+      "technology": "react_js",
+      "question_type": "mcq",
+      "question_title": "ssfdsadsa",
+      "options": {
+        "option_1": "zzsCs",
+        "option_2": "safdadfa"
+      },
+      "correct_answar": "option_1",
+      "id": 8
+    },
+    {
+      "technology": "python",
+      "question_type": "mcq",
+      "question_title": "sdsafd",
+      "options": {
+        "option_1": "dasfsadf",
+        "option_2": "afdasfa"
+      },
+      "correct_answar": "option_1",
+      "id": 9
+    },
+    {
+      "technology": "react_js",
+      "question_type": "programming",
+      "question_title": "kdjhskfdhfkjasfd",
+      "options": {
+        "option_1": "",
+        "option_2": ""
+      },
+      "correct_answar": [],
+      "id": 10
+    },
+    {
+      "technology": "python",
+      "question_type": "mcq",
+      "question_title": "jdfkaskdasda",
+      "options": {
+        "option_1": "hjgjh",
+        "option_2": "jhjjhj"
+      },
+      "correct_answar": [],
+      "id": 11
+    },
+    {
+      "technology": "java",
+      "question_type": "descriptive",
+      "question_title": "Q.What is oops",
+      "options": {
+        "option_1": "",
+        "option_2": ""
+      },
+      "correct_answar": [],
+      "id": 12
+    },
+    {
+      "technology": "java",
+      "question_type": "mcq",
+      "question_title": "kjlkcjksjda",
+      "options": {
+        "option_1": "asdfasf",
+        "option_2": "fasdfasf"
+      },
+      "correct_answar": [],
+      "id": 13
+    },
+    {
+      "technology": "java",
+      "question_type": "mcq",
+      "question_title": "dlkdfjskfhakj",
+      "options": {
+        "option_1": "mhgjhv",
+        "option_2": "kjhgjhj",
+        "option_3": "jhgjhghj"
+      },
+      "correct_answar": [
+        "option_1"
+      ],
+      "id": 14
+    },
+    {
+      "technology": "react_js",
+      "question_type": "programming",
+      "question_title": "lkjdlasjflkas",
+      "options": {
+        "option_1": "",
+        "option_2": ""
+      },
+      "correct_answar": [],
+      "id": 15
+    },
+    {
+      "technology": "java",
+      "question_type": "descriptive",
+      "question_title": "kjdskaldjfakfjdas",
+      "options": {
+        "option_1": "",
+        "option_2": ""
+      },
+      "correct_answar": [],
+      "id": 16
+    },
+    {
+      "technology": "react_js",
+      "question_type": "mcq",
+      "question_title": "lkdsjlsajfklasjdf",
+      "options": {
+        "option_1": "dsalkfjkasjf",
+        "option_2": "lkasjdfkasfdk"
+      },
+      "correct_answar": [
+        "option_1"
+      ],
+      "id": 17
+    },
+    {
+      "technology": "react_js",
+      "question_type": "mcq",
+      "question_title": "kcjksfhakfdhkasdfhkjasfdh",
+      "options": {
+        "option_1": "dasfafdsa",
+        "option_2": "fdsafasf"
+      },
+      "correct_answar": [
+        "option_1"
+      ],
+      "id": 18
+    },
+    {
+      "technology": "react_js",
+      "question_type": "mcq",
+      "question_title": "dsadfaf",
+      "options": {
+        "option_1": "asdfasfa",
+        "option_2": "fdafdas"
+      },
+      "correct_answar": [
+        "option_2"
+      ],
+      "id": 19
+    }
+  ]
+}

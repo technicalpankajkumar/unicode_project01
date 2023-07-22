@@ -9,7 +9,7 @@ const columns = [
   { field: 'correct_answar', headerName: 'correct Answar', width: 230 },
 ];
 
-export default function DataTable({rows,onClick}) {
+export default function DataTable({rows,onClick,onHeaderCheckSelection}) {
   return (
     <div className='container-data-table'>
       <div className='data-table'>
@@ -24,8 +24,9 @@ export default function DataTable({rows,onClick}) {
           pageSizeOptions={[5, 10,15,30]}
           checkboxSelection
           onCellClick={(newSelection) => {
-             onClick(newSelection.row)
+             onClick(newSelection)
           }}
+          onRowSelectionModelChange={(arr)=> onHeaderCheckSelection(arr)}
         />
       </div>
     </div>
