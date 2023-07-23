@@ -19,7 +19,7 @@ function Layout() {
         radioValue:'',
         screeningType: {},
         numberOfQuestions: 0,
-        randomQueston: { random_question: 0, technologies: [], number_of_mcq_question: 0 },
+        randomQueston: { random_question:0, technologies:[], number_of_mcq_question:0 },
         predifineQuestion: {
             total_question: 0,
             checkbox_selected_question:[],
@@ -28,6 +28,8 @@ function Layout() {
     })
     const [btnControl,setBtnControl]= useState(false)
     const [renderSection, setRenderSection] = useState(true)
+
+    console.log(store)
 
     return (
         <ContextAPI.Provider value={{ store, setStore , setBtnControl}}>

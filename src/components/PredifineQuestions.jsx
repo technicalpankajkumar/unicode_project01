@@ -126,7 +126,6 @@ function PredifineQuestions() {
         }
     }
 
-    console.log(store)
     return (
         <div className='predifine-question'>
             <div className='container-predifine-question'>

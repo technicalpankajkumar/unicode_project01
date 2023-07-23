@@ -6,14 +6,19 @@ import { ContextAPI } from './Layout'
 import { toast } from 'react-toastify'
 function RandomQuestion() {
     const contextApi = useContext(ContextAPI);
-    const { numberOfQuestions, randomQueston } = contextApi.store;
+    const { numberOfQuestions, randomQueston,radioValue } = contextApi.store;
     const { random_question, number_of_mcq_question , technologies} = randomQueston
 
     useEffect(()=>{
           //set predifine question value remaing value
           let remainingValue = Number(numberOfQuestions) - Number(random_question)
           contextApi.setStore(pre => ({...pre,predifineQuestion:{...pre.predifineQuestion,total_question: remainingValue}}))
-    },[random_question])
+
+          if(Number(number_of_mcq_question) === 0 || radioValue === 'mcq')
+          contextApi.setStore(pre => ({...pre,randomQueston:{...pre.randomQueston,number_of_mcq_question: random_question}}))
+
+    },[random_question,radioValue])
+
 
     const onChange = (e) => {
         if (e.target.value < 0) {
@@ -64,6 +69,8 @@ function RandomQuestion() {
             />
 
             {/* Number of MCQ Questions */}
+            {
+            radioValue !== 'mcq' && <>
             <Label className="labels" label="No. of MCQ Question" />
             <Input
                 type="number"
@@ -72,6 +79,8 @@ function RandomQuestion() {
                 className="input-class"
                 onChange={onChange}
             />
+            </>
+            }
         </div>
     )
 }
