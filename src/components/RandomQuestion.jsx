@@ -6,18 +6,24 @@ import { ContextAPI } from './Layout'
 import { toast } from 'react-toastify'
 function RandomQuestion() {
     const contextApi = useContext(ContextAPI);
-    const { numberOfQuestions, randomQueston,radioValue } = contextApi.store;
-    const { random_question, number_of_mcq_question , technologies} = randomQueston
+    const { numberOfQuestions, randomQueston, radioValue } = contextApi.store;
+    const { random_question, number_of_mcq_question, technologies, programming_question } = randomQueston
 
-    useEffect(()=>{
-          //set predifine question value remaing value
-          let remainingValue = Number(numberOfQuestions) - Number(random_question)
-          contextApi.setStore(pre => ({...pre,predifineQuestion:{...pre.predifineQuestion,total_question: remainingValue}}))
+    useEffect(() => {
+        //set predifine question value remaing value
+        let remainingValue = Number(numberOfQuestions) - Number(random_question)
+        contextApi.setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, total_question: remainingValue } }))
 
-          if(Number(number_of_mcq_question) === 0 || radioValue === 'mcq')
-          contextApi.setStore(pre => ({...pre,randomQueston:{...pre.randomQueston,number_of_mcq_question: random_question}}))
+        if (radioValue === 'mcq') {
+            // if (Number(number_of_mcq_question) === 0)
+                contextApi.setStore(pre => ({ ...pre, randomQueston: { ...pre.randomQueston, number_of_mcq_question: random_question } }))
+        }
+        else {
+            // if (number_of_mcq_question <= random_question)
+                contextApi.setStore(pre => ({ ...pre, randomQueston: { ...pre.randomQueston, programming_question: Number(random_question) - Number(number_of_mcq_question) } }))
+        }
 
-    },[random_question,radioValue])
+    }, [random_question, radioValue, number_of_mcq_question])
 
 
     const onChange = (e) => {
@@ -36,6 +42,7 @@ function RandomQuestion() {
                 toast.error(`please make sure value is ${e.target.name} less then question ! `)
             }
         }
+
     }
 
     //select option logic for random question
@@ -70,16 +77,16 @@ function RandomQuestion() {
 
             {/* Number of MCQ Questions */}
             {
-            radioValue !== 'mcq' && <>
-            <Label className="labels" label="No. of MCQ Question" />
-            <Input
-                type="number"
-                name="number_of_mcq_question"
-                value={number_of_mcq_question}
-                className="input-class"
-                onChange={onChange}
-            />
-            </>
+                radioValue !== 'mcq' && <>
+                    <Label className="labels" label="No. of MCQ Question" />
+                    <Input
+                        type="number"
+                        name="number_of_mcq_question"
+                        value={number_of_mcq_question}
+                        className="input-class"
+                        onChange={onChange}
+                    />
+                </>
             }
         </div>
     )

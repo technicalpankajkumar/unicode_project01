@@ -19,7 +19,7 @@ function Layout() {
         radioValue:'',
         screeningType: {},
         numberOfQuestions: 0,
-        randomQueston: { random_question:0, technologies:[], number_of_mcq_question:0 },
+        randomQueston: { random_question:0, technologies:[], number_of_mcq_question:0 ,programming_question:0},
         predifineQuestion: {
             total_question: 0,
             checkbox_selected_question:[],

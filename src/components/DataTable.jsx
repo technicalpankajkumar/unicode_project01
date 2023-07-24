@@ -6,7 +6,10 @@ const columns = [
   { field: 'question_title', headerName: 'Question Title', width: 270 },
   { field: 'technology', headerName: 'Technology', width: 130 },
   { field: 'question_type', headerName: 'Question Type', width: 130 },
-  { field: 'correct_answar', headerName: 'correct Answar', width: 230 },
+  { field: 'correct_answar', headerName: 'correct Answar', width: 230,
+   sortable:false, valueGetter:(params)=>{
+        return params.row.options?.[params.row.correct_answar]
+   }},
 ];
 
 export default function DataTable({rows,onClick,onHeaderCheckSelection}) {
@@ -14,7 +17,7 @@ export default function DataTable({rows,onClick,onHeaderCheckSelection}) {
     <div className='container-data-table'>
       <div className='data-table'>
         <DataGrid
-          rows={rows}
+          rows={rows.length === 0 ? [{id:"!",technology:"No Data Found"}] : rows}
           columns={columns}
           initialState={{
             pagination: {
