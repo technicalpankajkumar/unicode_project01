@@ -95,7 +95,7 @@ function PredifineQuestions() {
     }
 
     const onTableCheckSelect = (data) => {
-        const { formattedValue, value, row } = data;
+        const { value, row } = data;
         if (value) {
             setStore(pre => ({
                 ...pre, predifineQuestion: {
@@ -118,11 +118,12 @@ function PredifineQuestions() {
         btnDisabled()
     }
 
+    //main submit form button disable
     const btnDisabled = () => {
         if (Number(total_question) === checkbox_selected_question.length+1) {
-            setBtnControl(true)
-        } else {
             setBtnControl(false)
+        } else {
+            setBtnControl(true)
         }
     }
 

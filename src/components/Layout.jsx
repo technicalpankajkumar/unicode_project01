@@ -16,23 +16,21 @@ function Layout() {
         testTypeOptionsCreate: testTypeOptions,
         testType: '',
         managedType: {},
-        radioValue:'',
+        radioValue: '',
         screeningType: {},
         numberOfQuestions: 0,
-        randomQueston: { random_question:0, technologies:[], number_of_mcq_question:0 ,programming_question:0},
+        randomQueston: { random_question: 0, technologies: [], number_of_mcq_question: 0, programming_question: 0 },
         predifineQuestion: {
             total_question: 0,
-            checkbox_selected_question:[],
+            checkbox_selected_question: [],
             newly_created_questions: [0]
         }
     })
-    const [btnControl,setBtnControl]= useState(false)
+    const [btnControl, setBtnControl] = useState(true)
     const [renderSection, setRenderSection] = useState(true)
 
-    console.log(store)
-
     return (
-        <ContextAPI.Provider value={{ store, setStore , setBtnControl}}>
+        <ContextAPI.Provider value={{ store, setStore, setBtnControl }}>
             <div className='layout-container'>
                 <h3 className='questions-title'>Candidate screening test creation.</h3>
                 <ToastContainer />
@@ -40,7 +38,7 @@ function Layout() {
                     <QuestionsCreate />
                     {/* Random and Predifined Question Section */}
                     {
-                       ( Number(store.numberOfQuestions) > 0 && store.testName != '' && store.testType != '' && store.radioValue != '' && Object.values(store.managedType).length != 0 && Object.values(store.screeningType).length != 0)
+                        (Number(store.numberOfQuestions) > 0 && store.testName != '' && store.testType != '' && store.radioValue != '' && Object.values(store.managedType).length != 0 && Object.values(store.screeningType).length != 0)
                             ?
                             <div className='container-random-predifine-question'>
                                 <div className='navigate-question'>
@@ -57,8 +55,22 @@ function Layout() {
                     }
                     {/* submitted buttons */}
                     <div className='btn-group btn-main'>
-                        <Button type="button" label="Submit Condidate Test" className={btnControl ? 'btn btn-1' :"btn btn-1 btn-disabled"} disabled={btnControl} />
-                        <Button type="button" label="Final Submit" className={btnControl ? 'btn btn-2' :"btn btn-2 btn-disabled"} disabled={btnControl}/>
+
+                        {/* btnDisable control function is define in PredifineQuestions component */}
+                        <Button
+                            type="button"
+                            label="Submit Condidate Test"
+                            className={btnControl ? 'btn btn-1 btn-disabled' : "btn btn-1 "}
+                            disabled={btnControl}
+                            onClick={()=> console.log(store)}
+                        />
+                        <Button
+                            type="button"
+                            label="Final Submit"
+                            className={btnControl ? 'btn btn-2 btn-disabled' : "btn btn-2"}
+                            disabled={btnControl}
+                            onClick={()=> console.log(store)}
+                        />
                     </div>
                 </div>
             </div>

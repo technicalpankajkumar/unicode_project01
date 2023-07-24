@@ -131,8 +131,6 @@ function CreateNewQuestions({ setAddQuestion }) {
         }
     }
 
-    console.log(questionStore)
-
     return (
         <div className='container-create-new-question'>
             <h1>Add New Question</h1>
