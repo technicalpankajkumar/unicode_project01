@@ -107,26 +107,16 @@ function PredifineQuestions() {
         } else {
             setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: [...pre.predifineQuestion.checkbox_selected_question, row.id] } }))
         }
-        btnDisabled()
     }
     const onHeaderCheckSelection = (arr) => {
         if (arr.length === 0) {
-            setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: [arr.length] } }))
+            setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: [] } }))
         } else {
             setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: arr } }))
         }
-        btnDisabled()
     }
 
-    //main submit form button disable
-    const btnDisabled = () => {
-        if (Number(total_question) === checkbox_selected_question.length+1) {
-            setBtnControl(false)
-        } else {
-            setBtnControl(true)
-        }
-    }
-
+   
     return (
         <div className='predifine-question'>
             <div className='container-predifine-question'>
