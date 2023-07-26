@@ -1,37 +1,42 @@
 import React, { memo, useState, createContext, useEffect } from 'react'
 import QuestionsCreate from './QuestionsCreate'
-import { testTypeOptions } from './Data'
-import { Button } from 'form_utility_package'
 import RandomQuestion from './RandomQuestion'
 import PredifineQuestions from './PredifineQuestions'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { PostAPI } from './API'
 
 export const ContextAPI = createContext()
-const initialStore ={
-    testName: "",
-    testTypeOptionsCreate: testTypeOptions,
-    testType: '',
-    managedType: {},
-    radioValue: '',
-    screeningType: {},
-    numberOfQuestions: 0,
-    randomQueston: { random_question: 0, technologies: [], number_of_mcq_question: 0, programming_question: 0 },
-    predifineQuestion: {
-        total_question: 0,
-        checkbox_selected_question: [],
-        newly_created_questions: [0]
-    }
-}
 
-function Layout({storeHub,setStoreHub,btnControl,setBtnControl}) {
+function Layout({storeHub,setStoreHub,btnControl,setBtnControl,formName,createForms,initialState}) {
     
-    const [store, setStore] = useState(initialStore)
+    const [store, setStore] = useState(initialState)
 
     const [renderSection, setRenderSection] = useState(true)
 
     useEffect(() => {
+
+        const data = {
+                    "test_type_key": store.testType.value,
+                    "test_name": store.testName,
+                    "is_screening_test": store.screeningType.value=== 'pre-interview' ? 0:1,
+                    "is_for_agent_panel": store.managedType.value !== 'agent' ? "false" : "true",
+                    "is_mcq": store.radioValue === 'mcq' ? "true" :"false",
+                    "no_of_predefined_questions": 1,
+                    "total_no_question": store.numberOfQuestions,
+                    "predefined_questions": {
+                        "no_of_predefined_questions": store.predifineQuestion.total_question,
+                        "already_selected_question_id": store.predifineQuestion.checkbox_selected_question,
+                        "newly_created_questions": store.predifineQuestion.newly_created_questions
+                    },
+                    "random_questions": {
+                        "no_of_random_question": store.randomQueston.random_question,
+                        "technologies": store.randomQueston.technologies,
+                        "no_of_mcq_question": store.randomQueston.number_of_mcq_question,
+                        "no_of_programming_question":store.randomQueston.programming_question
+                    }
+                }
+        setStoreHub((prev)=>({...prev,test_types: {...prev.test_types, [formName]: {...data} }}))
+
         //main submit form button disable
         const btnDisabled = () => {
             if (store.predifineQuestion.checkbox_selected_question.length > 0) {
@@ -53,35 +58,18 @@ function Layout({storeHub,setStoreHub,btnControl,setBtnControl}) {
 
     }, [store.predifineQuestion.checkbox_selected_question.length,store.randomQueston.random_question])
 
-    const onSubmitTest = () => {
-        const data = {
-            "test_type_key": store.testType.value,
-            "test_name": store.testName,
-            "is_screening_test": store.screeningType.value,
-            "is_for_agent_panel": store.managedType.value !== 'agent' ? "false" : "true",
-            "is_mcq": store.radioValue === 'mcq' ? "true" :"false",
-            "no_of_predefined_questions": 1,
-            "total_no_question": store.numberOfQuestions,
-            "predefined_questions": {
-                "no_of_predefined_questions": store.predifineQuestion.total_question,
-                "already_selected_question_id": store.predifineQuestion.checkbox_selected_question,
-                "newly_created_questions": store.predifineQuestion.newly_created_questions
-            },
-            "random_questions": {
-                "no_of_random_question": store.randomQueston.random_question,
-                "technologies": store.randomQueston.technologies,
-                "no_of_mcq_question": store.randomQueston.number_of_mcq_question,
-                "no_of_programming_question":store.randomQueston.programming_question
-            }
-        }
 
-        PostAPI(`http://localhost:8000/test_types`,data).then(res =>{ toast("Data is " +res.statusText); setStore(initialStore)}).catch(err => toast.error(err.message))
-    }
+    const createFormsDelete=(keyName)=>{
 
+        let copyTestType = {...storeHub.test_types};
+        delete copyTestType[keyName];
+        setStoreHub((prev)=>({...prev, test_types:copyTestType}))
+    
+      }
+      
     return (
-        <ContextAPI.Provider value={{ store, setStore, setBtnControl }}>
-            <div className='layout-container'>
-                <h3 className='questions-title'>Candidate screening test creation.</h3>
+        <ContextAPI.Provider value={{ store, setStore, setBtnControl, createForms,storeHub,setStoreHub,formName ,createFormsDelete }}>
+                <h3 style={{padding:"5px 20px"}}>   </h3>
                 <ToastContainer />
                 <div className="container">
                     <QuestionsCreate />
@@ -102,27 +90,7 @@ function Layout({storeHub,setStoreHub,btnControl,setBtnControl}) {
                             :
                             <></>
                     }
-                    {/* submitted buttons */}
-                    <div className='btn-group btn-main'>
-
-                        {/* btnDisable control function is define in PredifineQuestions component */}
-                        <Button
-                            type="button"
-                            label="Submit Condidate Test"
-                            className={btnControl ? 'btn btn-1 btn-disabled' : "btn btn-1 "}
-                            disabled={btnControl}
-                            onClick={() => onSubmitTest()}
-                        />
-                        <Button
-                            type="button"
-                            label="Final Submit"
-                            className={btnControl ? 'btn btn-2 btn-disabled' : "btn btn-2"}
-                            disabled={btnControl}
-                            onClick={() =>console.log("but working.....")}
-                        />
                     </div>
-                </div>
-            </div>
         </ContextAPI.Provider>
     )
 }

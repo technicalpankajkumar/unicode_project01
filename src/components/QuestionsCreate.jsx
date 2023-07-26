@@ -2,13 +2,13 @@ import React, { memo, useContext } from 'react'
 import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
 import { Input, Radio } from 'form_utility_package'
-import { managedByOption, radioOptions, radioOptions2, screeningTypeOptions} from './Data';
+import { managedByOption, radioOptions, radioOptions2, screeningTypeOptions } from './Data';
 import { ContextAPI } from './Layout';
 import { toast } from 'react-toastify';
 function QuestionsCreate() {
 
     const ContextAPIData = useContext(ContextAPI)
-    const {store,setStore}=ContextAPIData
+    const { store, setStore, createForms, formName, createFormsDelete } = ContextAPIData
 
     const { testName, managedType, testTypeOptionsCreate, screeningType, numberOfQuestions } = store;
 
@@ -29,9 +29,9 @@ function QuestionsCreate() {
 
     //this onChange function apply othere field
     const onChange = (e) => {
-        if(e.target.value < 0){
+        if (e.target.value < 0) {
             toast.warn("please add value grater then 0 !")
-        }else {
+        } else {
             setStore(pre => ({ ...pre, [e.target.name]: e.target.value }))
         }
     }
@@ -52,13 +52,26 @@ function QuestionsCreate() {
 
                 {/* form_utility_library code */}
                 <label className="labels">Test name </label>
-                <Input 
-                type="text" 
-                name="testName" 
-                value={testName} 
-                onChange={onChange} 
-                placeholder="Enter test name" 
-                className="input-class" />
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <Input
+                        type="text"
+                        name="testName"
+                        value={testName}
+                        onChange={onChange}
+                        placeholder="Enter test name"
+                        className="input-class" />
+                    <i className="bi bi-plus-square"
+                        onClick={createForms}
+                        style={{ fontSize: "15px", margin: "0px 7px", color: "green" }}
+                    ></i>
+                    {
+                       formName !== 'form1' && <i className="bi bi-trash3" 
+                       style={{ fontSize: "15px", color: "red" }}
+                       onClick={()=>createFormsDelete(formName)}
+                       ></i> 
+                    }
+                    
+                </div>
 
                 {/* react-select library code */}
                 <label className="labels">Select Test Type or add New Test Type </label>
@@ -114,7 +127,7 @@ function QuestionsCreate() {
                     onChange={onChange}
                     className="input-class"
                 />
-                
+
             </div>
         </div>
     )

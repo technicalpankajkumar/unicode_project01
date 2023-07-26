@@ -214,5 +214,36 @@
       "id": 19
     }
   ],
-  "test_types": []
+  "data": [
+    {
+      "hiring_request_id": 1,
+      "level": 4,
+      "hiring_technologies": [],
+      "test_types": [
+        {
+          "test_type_key": "xyz",
+          "test_name": "react js",
+          "is_screening_test": 0,
+          "is_for_agent_panel": "false",
+          "is_mcq": "true",
+          "no_of_predefined_questions": 1,
+          "total_no_question": "20",
+          "predefined_questions": {
+            "no_of_predefined_questions": 18,
+            "already_selected_question_id": [],
+            "newly_created_questions": [
+              0
+            ]
+          },
+          "random_questions": {
+            "no_of_random_question": "20",
+            "technologies": [],
+            "no_of_mcq_question": "2",
+            "no_of_programming_question": 0
+          }
+        }
+      ],
+      "id": 1
+    }
+  ]
 }
