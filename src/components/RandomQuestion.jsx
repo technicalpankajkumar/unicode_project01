@@ -6,8 +6,9 @@ import { ContextAPI } from './Layout'
 import { toast } from 'react-toastify'
 function RandomQuestion() {
     const contextApi = useContext(ContextAPI);
+    
     const { numberOfQuestions, randomQueston, radioValue } = contextApi.store;
-    const { random_question, number_of_mcq_question, technologies, programming_question } = randomQueston
+    const { random_question, number_of_mcq_question, technologies, } = randomQueston
 
     useEffect(() => {
         //set predifine question value remaing value
@@ -49,9 +50,9 @@ function RandomQuestion() {
     const onSelect = (name, obj) => {
         contextApi.setStore(pre => ({
             ...pre, randomQueston: {
-                ...pre.randomQueston, [name]: obj
+                ...pre.randomQueston, [name]:obj}
             }
-        }))
+        ))
     }
     return (
         <div className='random-questions'>

@@ -7,34 +7,22 @@ import { PostAPI } from './components/API';
 import { toast } from 'react-toastify';
 function App() {
   const [storeHub, setStoreHub] = useState({
+    hiring_request_id: 1,
     level: 4,
     hiring_technologies: [],
     test_types: { form1: {}, }
   })
 
   const [btnControl, setBtnControl] = useState(true)
-
-  const initialState ={
-    testName: "",
-    testTypeOptionsCreate: testTypeOptions,
-    testType: '',
-    managedType: {},
-    radioValue: '',
-    screeningType: {},
-    numberOfQuestions: 0,
-    randomQueston: { random_question: 0, technologies: [], number_of_mcq_question: 0, programming_question: 0 },
-    predifineQuestion: {
-        total_question: 0,
-        checkbox_selected_question: [],
-        newly_created_questions: [0]
-    }
-}
-
+  const [uniqueKey,setUniqueKey] = useState(0)
+  
   function onSubmitTest() {
     const {test_types,...rest} = storeHub
     const testTypeArr = Object.values(test_types)
-     PostAPI(`http://localhost:8000/data`,{hiring_request_id: 1,...rest,test_types:testTypeArr,}).then(res => {
+     PostAPI(`http://localhost:8000/data`,{...rest,test_types:testTypeArr,}).then(res => {
         toast("Data is "+res.statusText)
+        setBtnControl(true)
+        setTimeout(()=> window.location.reload(),5000)
      }).catch(err => toast.error(err))
   }
 
@@ -42,6 +30,9 @@ function App() {
     let nextFormKey = "form" + (Number(Object.keys(storeHub.test_types).slice(-1)[0].slice(-1)) + 1);
 
     setStoreHub(pre => ({ ...pre, test_types: { ...pre.test_types, [nextFormKey]: {} } }))
+    
+    setUniqueKey(nextFormKey.slice(-1))
+
   }
  
 
@@ -59,7 +50,7 @@ function App() {
               setBtnControl={setBtnControl}
               formName={name}
               createForms={createForms}
-              initialState={initialState}
+              uniqueKey={uniqueKey}
             />
           })
         }

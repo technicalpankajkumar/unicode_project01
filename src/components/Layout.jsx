@@ -2,14 +2,29 @@ import React, { memo, useState, createContext, useEffect } from 'react'
 import QuestionsCreate from './QuestionsCreate'
 import RandomQuestion from './RandomQuestion'
 import PredifineQuestions from './PredifineQuestions'
+import { testTypeOptions } from './Data'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 export const ContextAPI = createContext()
 
-function Layout({storeHub,setStoreHub,btnControl,setBtnControl,formName,createForms,initialState}) {
+function Layout({storeHub,setStoreHub,btnControl,setBtnControl,formName,createForms,uniqueKey}) {
     
-    const [store, setStore] = useState(initialState)
+    const [store, setStore] = useState({
+        testName: "",
+        testTypeOptionsCreate: testTypeOptions,
+        testType: '',
+        managedType: {},
+        radioValue: '',
+        screeningType: {},
+        numberOfQuestions: 0,
+        randomQueston: { random_question: 0, technologies: [], number_of_mcq_question: 0, programming_question: 0 },
+        predifineQuestion: {
+            total_question: 0,
+            checkbox_selected_question: [],
+            newly_created_questions: [0]
+        }
+    })
 
     const [renderSection, setRenderSection] = useState(true)
 
@@ -21,7 +36,6 @@ function Layout({storeHub,setStoreHub,btnControl,setBtnControl,formName,createFo
                     "is_screening_test": store.screeningType.value=== 'pre-interview' ? 0:1,
                     "is_for_agent_panel": store.managedType.value !== 'agent' ? "false" : "true",
                     "is_mcq": store.radioValue === 'mcq' ? "true" :"false",
-                    "no_of_predefined_questions": 1,
                     "total_no_question": store.numberOfQuestions,
                     "predefined_questions": {
                         "no_of_predefined_questions": store.predifineQuestion.total_question,
@@ -30,7 +44,7 @@ function Layout({storeHub,setStoreHub,btnControl,setBtnControl,formName,createFo
                     },
                     "random_questions": {
                         "no_of_random_question": store.randomQueston.random_question,
-                        "technologies": store.randomQueston.technologies,
+                        "technologies":store.randomQueston.technologies,
                         "no_of_mcq_question": store.randomQueston.number_of_mcq_question,
                         "no_of_programming_question":store.randomQueston.programming_question
                     }
@@ -47,16 +61,16 @@ function Layout({storeHub,setStoreHub,btnControl,setBtnControl,formName,createFo
                 }
             }
             else if(Number(store.randomQueston.random_question) === Number(store.numberOfQuestions) && Number(store.randomQueston.random_question) !== 0){
-                setBtnControl(false)
+                if(store.randomQueston.technologies.length !== 0)
+                   setBtnControl(false)
             }
              else {
                 setBtnControl(true)
             }
-            
         }
         btnDisabled()
 
-    }, [store.predifineQuestion.checkbox_selected_question.length,store.randomQueston.random_question])
+    }, [store.predifineQuestion.checkbox_selected_question.length,store.randomQueston.random_question,store.randomQueston.technologies,store.randomQueston.no_of_mcq_question])
 
 
     const createFormsDelete=(keyName)=>{
@@ -68,7 +82,7 @@ function Layout({storeHub,setStoreHub,btnControl,setBtnControl,formName,createFo
       }
       
     return (
-        <ContextAPI.Provider value={{ store, setStore, setBtnControl, createForms,storeHub,setStoreHub,formName ,createFormsDelete }}>
+        <ContextAPI.Provider value={{ store, setStore, setBtnControl, createForms,storeHub,setStoreHub,formName ,createFormsDelete , uniqueKey}}>
                 <h3 style={{padding:"5px 20px"}}>   </h3>
                 <ToastContainer />
                 <div className="container">
