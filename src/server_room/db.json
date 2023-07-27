@@ -1051,6 +1051,69 @@
         }
       ],
       "id": 20
+    },
+    {
+      "hiring_request_id": 1,
+      "level": 4,
+      "hiring_technologies": [],
+      "test_types": [
+        {
+          "test_type_key": "xyz",
+          "test_name": "react js",
+          "is_screening_test": 0,
+          "is_for_agent_panel": "true",
+          "is_mcq": "true",
+          "total_no_question": "20",
+          "predefined_questions": {
+            "no_of_predefined_questions": 0,
+            "already_selected_question_id": [],
+            "newly_created_questions": [
+              0
+            ]
+          },
+          "random_questions": {
+            "no_of_random_question": "20",
+            "technologies": [
+              {
+                "value": "java",
+                "label": "Java"
+              }
+            ],
+            "no_of_mcq_question": "20",
+            "no_of_programming_question": 0
+          }
+        },
+        {
+          "test_type_key": "chocolate",
+          "test_name": "react js",
+          "is_screening_test": 1,
+          "is_for_agent_panel": "false",
+          "is_mcq": "false",
+          "total_no_question": "10",
+          "predefined_questions": {
+            "no_of_predefined_questions": 2,
+            "already_selected_question_id": [
+              4,
+              5
+            ],
+            "newly_created_questions": [
+              0
+            ]
+          },
+          "random_questions": {
+            "no_of_random_question": "8",
+            "technologies": [
+              {
+                "value": "java",
+                "label": "Java"
+              }
+            ],
+            "no_of_mcq_question": "6",
+            "no_of_programming_question": 2
+          }
+        }
+      ],
+      "id": 21
     }
   ]
 }
