@@ -168,7 +168,7 @@ function CreateNewQuestions({ setAddQuestion }) {
            
             }
             {
-                optionsCreate.map((data, index) => {
+               questionStore.question_type?.value === 'mcq' && optionsCreate.map((data, index) => {
                     return (<span key={index}>
                         <CreateOptions
                             localStore={questionStore}

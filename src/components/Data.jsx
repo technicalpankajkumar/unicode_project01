@@ -1,6 +1,7 @@
  const testTypeOptions = [
-    { value: "xyz", label: "XYZ" },
-    { value: "chocolate", label: "Chocolate" },
+    { value: "react_test", label: "React Test" },
+    { value: "java_test", label: "Java Test" },
+    { value: "coding_round", label: "Coding Round" },
 ]
  const managedByOption= [
     { value: "user", label: "User" },
@@ -12,12 +13,8 @@ const screeningTypeOptions =[
 ]
 
 const radioOptions = [
-    {value:"mcq", label:"MCQ",className:"radio",checked:true},
-    {value:"all", label:"All",className:"radio"},
-]
-const radioOptions2 = [
-    {value:"mcq", label:"MCQ",className:"radio"},
-    {value:"all", label:"All",className:"radio"},
+    {value:"yes", label:"YES",className:"radio",checked:true},
+    {value:"no", label:"NO",className:"radio"},
 ]
 
 const technologyOptions=[
@@ -30,4 +27,4 @@ const questionTypeOptions = [
     {value:"programming",label:"Programming"},
     {value:"descriptive",label:"Descriptive"},
 ]
-export {testTypeOptions,managedByOption,screeningTypeOptions,radioOptions,radioOptions2,technologyOptions,questionTypeOptions}
+export {testTypeOptions,managedByOption,screeningTypeOptions,radioOptions,technologyOptions,questionTypeOptions}

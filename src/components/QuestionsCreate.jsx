@@ -2,7 +2,7 @@ import React, { memo, useContext } from 'react'
 import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
 import { Input, Radio } from 'form_utility_package'
-import { managedByOption, radioOptions, radioOptions2, screeningTypeOptions } from './Data';
+import { managedByOption, radioOptions, screeningTypeOptions } from './Data';
 import { ContextAPI } from './Layout';
 import { toast } from 'react-toastify';
 function QuestionsCreate() {
@@ -16,11 +16,11 @@ function QuestionsCreate() {
     const onSmash = (type, obj) => {
         if (obj?.value == 'agent') {
             setStore(pre => ({ ...pre, [type]: obj }))
-            setStore(pre => ({ ...pre, radioValue: "mcq" }))
+            setStore(pre => ({ ...pre, radioValue: "yes" }))
         }
         else if (obj?.value == 'user') {
             setStore(pre => ({ ...pre, [type]: obj }))
-            setStore(pre => ({ ...pre, radioValue: "" }))
+            setStore(pre => ({ ...pre, radioValue: "yes" }))
         }
         else {
             setStore(pre => ({ ...pre, [type]: obj }))
@@ -65,12 +65,12 @@ function QuestionsCreate() {
                         style={{ fontSize: "15px", margin: "0px 7px", color: "green" }}
                     ></i>
                     {
-                       formName !== 'form1' && <i className="bi bi-trash3" 
-                       style={{ fontSize: "15px", color: "red" }}
-                       onClick={()=>createFormsDelete(formName)}
-                       ></i> 
+                        formName !== 'form1' && <i className="bi bi-trash3"
+                            style={{ fontSize: "15px", color: "red" }}
+                            onClick={() => createFormsDelete(formName)}
+                        ></i>
                     }
-                    
+
                 </div>
 
                 {/* react-select library code */}
@@ -88,25 +88,45 @@ function QuestionsCreate() {
                     onChange={(obj) => onSmash('managedType', obj)}
                     className="select-class"
                 />
+
                 {
-                    managedType.value == 'agent'
-                    &&
-                    <Radio
-                        options={radioOptions}
-                        name="radioValue"
-                        onChange={onChange}
-                        disabled={true}
-                    />
-                }
-                {
-                    managedType.value == 'user'
+                    managedType.value === 'agent'
                     &&
                     <>
+                        <p style={{ marginBottom: "4px" }}>is MCQ</p>
                         <Radio
-                            options={radioOptions2}
+                            options={radioOptions}
                             name="radioValue"
                             onChange={onChange}
+                            disabled={true}
                         />
+                    </>
+                }
+                {
+                    managedType.value === 'user'
+                    &&
+                    <>
+                        <p style={{ marginBottom: "4px" }}>is MCQ</p>
+                        <div style={{display:"flex"}}>
+                            <Input
+                                type="radio"
+                                value="yes"
+                                name="radioValue"
+                                onChange={onChange}
+                                checked={store.radioValue === 'yes'}
+                                style={{margin:"5px 5px 15px"}}
+                            />
+                            <span style={{margin:"4px 0px",}}>YES</span>
+                            <Input
+                                type="radio"
+                                value="no"
+                                name="radioValue"
+                                onChange={onChange}
+                                checked={store.radioValue === 'no'}
+                                style={{margin:"5px 5px 15px"}}
+                            />
+                            <span style={{margin:"4px 0px",}}>NO</span>
+                        </div>
                     </>
                 }
 
