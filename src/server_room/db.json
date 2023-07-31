@@ -506,6 +506,176 @@
         }
       ],
       "id": 4
+    },
+    {
+      "hiring_request_id": 1,
+      "level": 4,
+      "hiring_technologies": [],
+      "test_types": [
+        {
+          "test_type_key": "react_test",
+          "test_name": "react js",
+          "is_screening_test": 0,
+          "is_for_agent_panel": "false",
+          "is_mcq": "false",
+          "total_no_question": "19",
+          "predefined_questions": {
+            "no_of_predefined_questions": 0,
+            "already_selected_question_id": [],
+            "newly_created_questions": [
+              0
+            ]
+          },
+          "random_questions": {
+            "no_of_random_question": "19",
+            "technologies": [
+              {
+                "value": "react_js",
+                "label": "React JS"
+              }
+            ],
+            "no_of_mcq_question": 0,
+            "no_of_programming_question": "",
+            "no_of_descriptive_question": 19
+          }
+        }
+      ],
+      "id": 5
+    },
+    {
+      "hiring_request_id": 1,
+      "level": 4,
+      "hiring_technologies": [],
+      "test_types": [
+        {
+          "test_type_key": "react_test",
+          "test_name": "react js",
+          "is_screening_test": 0,
+          "is_for_agent_panel": "false",
+          "is_mcq": "true",
+          "total_no_question": "20",
+          "predefined_questions": {
+            "no_of_predefined_questions": 0,
+            "already_selected_question_id": [],
+            "newly_created_questions": [
+              0
+            ]
+          },
+          "random_questions": {
+            "no_of_random_question": "20",
+            "technologies": [],
+            "no_of_mcq_question": "20",
+            "no_of_programming_question": 0,
+            "no_of_descriptive_question": 0
+          }
+        }
+      ],
+      "id": 6
+    },
+    {
+      "hiring_request_id": 1,
+      "level": 4,
+      "hiring_technologies": [],
+      "test_types": [
+        {
+          "test_type_key": "java_test",
+          "test_name": "DFSFSF",
+          "is_screening_test": 0,
+          "is_for_agent_panel": "false",
+          "is_mcq": "false",
+          "total_no_question": "20",
+          "predefined_questions": {
+            "no_of_predefined_questions": 0,
+            "already_selected_question_id": [],
+            "newly_created_questions": [
+              0
+            ]
+          },
+          "random_questions": {
+            "no_of_random_question": "20",
+            "technologies": [
+              {
+                "value": "react_js",
+                "label": "React JS"
+              }
+            ],
+            "no_of_mcq_question": 0,
+            "no_of_programming_question": 20,
+            "no_of_descriptive_question": ""
+          }
+        }
+      ],
+      "id": 7
+    },
+    {
+      "hiring_request_id": 1,
+      "level": 4,
+      "hiring_technologies": [],
+      "test_types": [
+        {
+          "test_type_key": "react_test",
+          "test_name": "react js",
+          "is_screening_test": 0,
+          "is_for_agent_panel": "false",
+          "is_mcq": "false",
+          "total_no_question": "20",
+          "predefined_questions": {
+            "no_of_predefined_questions": 0,
+            "already_selected_question_id": [],
+            "newly_created_questions": [
+              0
+            ]
+          },
+          "random_questions": {
+            "no_of_random_question": "20",
+            "technologies": [
+              {
+                "value": "java",
+                "label": "Java"
+              }
+            ],
+            "no_of_mcq_question": 0,
+            "no_of_programming_question": "",
+            "no_of_descriptive_question": 20
+          }
+        }
+      ],
+      "id": 8
+    },
+    {
+      "hiring_request_id": 1,
+      "level": 4,
+      "hiring_technologies": [],
+      "test_types": [
+        {
+          "test_type_key": "java_test",
+          "test_name": "react js",
+          "is_screening_test": 1,
+          "is_for_agent_panel": "false",
+          "is_mcq": "false",
+          "total_no_question": "17",
+          "predefined_questions": {
+            "no_of_predefined_questions": 0,
+            "already_selected_question_id": [],
+            "newly_created_questions": [
+              0
+            ]
+          },
+          "random_questions": {
+            "no_of_random_question": "17",
+            "technologies": [
+              {
+                "value": "react_js",
+                "label": "React JS"
+              }
+            ],
+            "no_of_mcq_question": 0,
+            "no_of_programming_question": 0,
+            "no_of_descriptive_question": 17
+          }
+        }
+      ],
+      "id": 9
     }
   ]
 }

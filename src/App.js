@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import './App.css';
 import Layout from './components/Layout';
 import Button from 'form_utility_package/dist/form_utility/fields/Button';
-import { testTypeOptions } from './components/Data';
 import { PostAPI } from './components/API';
 import { toast } from 'react-toastify';
+
 function App() {
   const [storeHub, setStoreHub] = useState({
     hiring_request_id: 1,

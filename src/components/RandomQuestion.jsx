@@ -4,6 +4,7 @@ import React, { memo, useContext, useEffect } from 'react'
 import { technologyOptions } from './Data'
 import { ContextAPI } from './Layout'
 import { toast } from 'react-toastify'
+
 function RandomQuestion() {
     const contextApi = useContext(ContextAPI);
 
@@ -44,12 +45,11 @@ function RandomQuestion() {
 
     const onChange = (e) => {
         let { name, value } = e.target;
-
+console.log(Boolean(value), "--------")
         if (value < 0) {
             toast.warn("please add value grater then 0 !")
         } else {
             // expected values random_question, no_of_programming_question, 'no_of_descriptive_question'
-           
             //validate or setState of random_question
             if (name === 'random_question') {
                 if (value <= Number(numberOfQuestions)) {
@@ -65,27 +65,28 @@ function RandomQuestion() {
                     }))
                 }
                 else {
-                    toast.warn(`please entered value less or equal to total number of question! `)
+                    toast.warn(`please enter value less or equal to total number of question! `)
                 }
             }
             // validate of setState no_of_programming_question or no_of_descriptive_question 
-            if (('no_of_programming_question' === name && value <= Number(random_question)) || ('no_of_descriptive_question' === name && value <= Number(random_question))) {
+            else if (('no_of_programming_question' === name && value <= Number(random_question)) || ('no_of_descriptive_question' === name && value <= Number(random_question))) {
 
                 // checking value or programing - descriptive
                 if (name === 'no_of_programming_question') {
                     contextApi.setStore(pre => ({
                         ...pre, randomQueston: {
-                            ...pre.randomQueston, [name]: value, no_of_descriptive_question: random_question - value
+                            ...pre.randomQueston, [name]: value, no_of_descriptive_question: random_question - value 
                         }
                     }))
                 } else if (name === 'no_of_descriptive_question') {
                     contextApi.setStore(pre => ({
                         ...pre, randomQueston: {
-                            ...pre.randomQueston, [name]: value, no_of_programming_question: random_question - value
+                            ...pre.randomQueston, [name]: value, no_of_programming_question: random_question - value 
                         }
                     }))
                 }
-
+            } else {
+                toast("please first choose random Q. value")
             }
 
         }
@@ -116,7 +117,7 @@ function RandomQuestion() {
             {/* Technology */}
             <Label className="labels" label="Technology" />
             <Select
-                // isMulti
+                isMulti
                 value={technologies}
                 options={technologyOptions}
                 className='select-class'
@@ -125,7 +126,11 @@ function RandomQuestion() {
 
             {/* Number of MCQ Questions */}
             {
-                radioValue !== 'yes' && <div style={{ display: "flex" }}>
+                radioValue !== 'yes'
+                &&
+                // technologies.map((data, index) => {
+                //     return 
+                <div style={{ display: "flex" }}>
                     <span style={{ margin: "0px 4px 0px 0px" }}>
                         <Label className="labels" label="No. of Programming Question" />
                         <Input
@@ -134,6 +139,7 @@ function RandomQuestion() {
                             value={no_of_programming_question}
                             className="input-class"
                             onChange={onChange}
+                        // title={"Programming Q. "+data.label}
                         />
                     </span>
                     <span style={{ margin: "0px 0px 0px 4px" }}>
@@ -144,9 +150,12 @@ function RandomQuestion() {
                             value={no_of_descriptive_question}
                             className="input-class"
                             onChange={onChange}
+                        // title={"Descriptive Q. "+data.label}
+
                         />
                     </span>
                 </div>
+                // })
             }
         </div>
     )

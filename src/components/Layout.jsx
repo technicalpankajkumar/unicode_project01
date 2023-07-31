@@ -34,6 +34,9 @@ function Layout({ storeHub, setStoreHub, setBtnControl, formName, createForms, u
 
     const [renderSection, setRenderSection] = useState(true)
 
+    // new change data 28-07-2002
+    
+
     useEffect(() => {
 
         const data = {
@@ -52,8 +55,8 @@ function Layout({ storeHub, setStoreHub, setBtnControl, formName, createForms, u
                 "no_of_random_question": store.randomQueston.random_question,
                 "technologies": store.randomQueston.technologies,
                 "no_of_mcq_question": store.randomQueston.no_of_mcq_question,
-                "no_of_programming_question": store.randomQueston.no_of_programming_question,
-                "no_of_descriptive_question": store.randomQueston.no_of_descriptive_question,
+                "no_of_programming_question": store.randomQueston.no_of_programming_question || 0,
+                "no_of_descriptive_question": store.randomQueston.no_of_descriptive_question || 0,
             }
         }
         setStoreHub((prev) => ({ ...prev, test_types: { ...prev.test_types, [formName]: { ...data } } }))
@@ -68,8 +71,20 @@ function Layout({ storeHub, setStoreHub, setBtnControl, formName, createForms, u
                 }
             }
             else if (Number(store.randomQueston.random_question) === Number(store.numberOfQuestions) && Number(store.randomQueston.random_question) !== 0) {
-                if (store.randomQueston.technologies.length !== 0)
-                    setBtnControl(false)
+                if (store.randomQueston.technologies.length !== 0 ){
+                    if(store.radioValue === 'no'){
+                        if(store.randomQueston.no_of_descriptive_question !== 0 && store.randomQueston.no_of_programming_question !==0){
+                             setBtnControl(false)
+                        }else{
+                            setBtnControl(true)
+                        }
+                    }else{
+                        setBtnControl(false)
+                    }
+                }else{
+                    setBtnControl(true)
+                }
+                    
             }
             else {
                 setBtnControl(true)
@@ -77,7 +92,7 @@ function Layout({ storeHub, setStoreHub, setBtnControl, formName, createForms, u
         }
         btnDisabled()
 
-    }, [store.predifineQuestion.checkbox_selected_question.length, store.randomQueston.random_question, store.randomQueston.technologies, store.randomQueston.no_of_mcq_question])
+    }, [store.predifineQuestion.checkbox_selected_question.length, store.randomQueston])
 
 
     const createFormsDelete = (keyName) => {

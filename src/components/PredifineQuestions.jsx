@@ -60,20 +60,20 @@ function PredifineQuestions() {
                     resp.json().then(result => setRows(result))
                 })
             }
-            else if(question_type2 && technology1){
+            else if (question_type2 && technology1) {
                 GetAPI(`http://localhost:8000/created_new_questions?technology=${technology1}&question_type=${question_type1}&question_type=${question_type2}`).then(resp => {
                     resp.json().then(result => setRows(result))
                 })
-            }else if(technology1 && technology2) {
+            } else if (technology1 && technology2) {
                 GetAPI(`http://localhost:8000/created_new_questions?technology=${technology1}&technology=${technology2}&question_type=${question_type1}`).then(resp => {
                     resp.json().then(result => setRows(result))
                 })
             }
-             else if(technology1) {
+            else if (technology1) {
                 GetAPI(`http://localhost:8000/created_new_questions?technology=${technology1}&question_type=${question_type1}`).then(resp => {
                     resp.json().then(result => setRows(result))
                 })
-            }else{
+            } else {
                 GetAPI(`http://localhost:8000/created_new_questions?question_type=${question_type1}`).then(resp => {
                     resp.json().then(result => setRows(result))
                 })
@@ -116,7 +116,7 @@ function PredifineQuestions() {
         }
     }
 
-   
+
     return (
         <div className='predifine-question'>
             <div className='container-predifine-question'>
@@ -173,6 +173,20 @@ function PredifineQuestions() {
                 />
             </div>
             {addQuestion ? <CreateNewQuestions setAddQuestion={setAddQuestion} /> : <></>}
+
+
+            {/* adding new section date 28-07-2023 */}
+            {/* <div style={{display:"flex", padding:"0px"}}>
+            <Button
+                style={{ margin: "10px 0px 10px 10px", padding: "10px", borderRadius: "4px", border: "none", background:"green",color:"white", fontWeight:"bold"}}
+                type="button"
+                label={'Selected Q. ' + store.predifineQuestion.checkbox_selected_question.length}
+            />
+            <div style={{paddingTop:"14px"}}><i className="bi bi-trash3" style={{fontSize:"25px",color:"darkRed"}}></i></div>
+            </div> */}
+            {/* adding new section date 28-07-2023 */}
+
+
             <DataTable rows={rows} onClick={onTableCheckSelect} onHeaderCheckSelection={onHeaderCheckSelection} />
         </div>
     )
