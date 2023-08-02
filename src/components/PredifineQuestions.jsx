@@ -1,5 +1,5 @@
 import { Button, Input, Label } from 'form_utility_package'
-import React, { memo, useContext, useEffect, useState } from 'react'
+import React, { Suspense, memo, useContext, useEffect, useState } from 'react'
 import Select from 'react-select'
 import { questionTypeOptions, technologyOptions } from './Data'
 import CreateNewQuestions from './CreateNewQuestions'
@@ -18,8 +18,8 @@ function PredifineQuestions() {
     const [addQuestion, setAddQuestion] = useState(false)
 
     const contextAPI = useContext(ContextAPI)
-    const { store, setStore, setBtnControl } = contextAPI
-    const { total_question, checkbox_selected_question } = store.predifineQuestion;
+    const { store, setStore } = contextAPI
+    const { total_question } = store.predifineQuestion;
 
     useEffect(() => {
         GetAPI('http://localhost:8000/created_new_questions').then(resp => resp.json().then(res => {
@@ -30,6 +30,7 @@ function PredifineQuestions() {
     const onSelectChange = (name, obj) => {
         setSearchData(pre => ({ ...pre, [name]: obj }))
     }
+
     const onChange = (e) => {
         if (e.target.value < 0) {
             toast.warn("please add value grater then 0 !")
@@ -47,6 +48,8 @@ function PredifineQuestions() {
             }
         }
     }
+
+    //Search Questions in the table functionality code start here.
     const onSearch = () => {
         const { technology, question_type } = searchData
         const technology1 = searchData.technology.length != 0 && technology[0]?.value
@@ -89,33 +92,11 @@ function PredifineQuestions() {
         }
 
     }
+    //Search Questions in the table functionality code data clear here.
     const onClear = () => {
         setSearchData(pre => ({ technology: [], question_type: [] }))
         setSearchClear(!searchClear)
     }
-
-    const onTableCheckSelect = (data) => {
-        const { value, row } = data;
-        if (value) {
-            setStore(pre => ({
-                ...pre, predifineQuestion: {
-                    ...pre.predifineQuestion, checkbox_selected_question: checkbox_selected_question.filter(id => {
-                        return id != row.id
-                    })
-                }
-            }))
-        } else {
-            setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: [...pre.predifineQuestion.checkbox_selected_question, row.id] } }))
-        }
-    }
-    const onHeaderCheckSelection = (arr) => {
-        if (arr.length === 0) {
-            setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: [] } }))
-        } else {
-            setStore(pre => ({ ...pre, predifineQuestion: { ...pre.predifineQuestion, checkbox_selected_question: arr } }))
-        }
-    }
-
 
     return (
         <div className='predifine-question'>
@@ -186,8 +167,9 @@ function PredifineQuestions() {
             </div> */}
             {/* adding new section date 28-07-2023 */}
 
-
-            <DataTable rows={rows} onClick={onTableCheckSelect} onHeaderCheckSelection={onHeaderCheckSelection} />
+            <Suspense fallback={<h5>Data is loading....</h5>}>
+                <DataTable rows={rows} />
+            </Suspense>
         </div>
     )
 }

@@ -45,7 +45,7 @@ function RandomQuestion() {
 
     const onChange = (e) => {
         let { name, value } = e.target;
-console.log(Boolean(value), "--------")
+
         if (value < 0) {
             toast.warn("please add value grater then 0 !")
         } else {
